@@ -6,8 +6,8 @@
 /*
  * Your application specific code will go here
  */
-define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmodule-element-utils', 'ojs/ojmoduleanimations', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ModuleHelper', 'ojs/ojknockout', 'ojs/ojmodule-element'],
-        function (ko, data, Router, ThemeUtils, moduleUtils, ModuleAnimations, ArrayDataProvider, KnockoutTemplateUtils, moduleHelper) {
+define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmodule-element-utils', 'ojs/ojmoduleanimations', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojknockout', 'ojs/ojmodule-element'],
+        function (ko, data, Router, ThemeUtils, moduleUtils, ModuleAnimations, ArrayDataProvider, KnockoutTemplateUtils) {
             function ControllerViewModel() {
                 var self = this;
 
