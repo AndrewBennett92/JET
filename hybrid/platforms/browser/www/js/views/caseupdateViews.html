@@ -1,0 +1,39 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <!--
+       ** Oracle JET V7.2.0 hybrid mobile application header pattern.
+       ** Please see the Oracle JET Cookbook App Shell: Hybrid Mobile demos for
+       ** more information on how to use this pattern.
+    -->
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <!-- This is where your main page content will be loaded -->
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+      <div class="oj-hybrid-padding">
+          <div id="componentCaseContent" style="width: 1px; min-width: 100%;">
+            <div id="routing-container" class="oj-flex case-edge-top">
+              <oj-tab-bar edge="top" selection="{{custRouter.stateId}}">
+                <ul>
+                  <oj-bind-for-each data="[[custRouter.states]]">
+                    <template>
+                      <li :id="[[$current.data.id]]">
+                        <span>
+                          <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                        </span>
+                      </li>
+                    </template>
+                  </oj-bind-for-each>
+                </ul>
+              </oj-tab-bar>
+              <div>
+                <oj-module config="[[moduleConfig]]"></oj-module>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
