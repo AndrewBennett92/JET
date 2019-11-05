@@ -13,7 +13,33 @@
   visibility: hidden;
 }
 
-.svm-dont-break-out {
+/* -------------------------------------------------------- */
+/* login page */
+.svm-button-login.oj-buttonset .oj-button-jqui.oj-default.oj-button-full-chrome,
+.svm-button-login.oj-buttonset .oj-button-jqui.oj-focus-only.oj-button-full-chrome, .svm-button-login.oj-button-jqui.oj-default.oj-button-full-chrome, .svm-button-login.oj-button-jqui.oj-focus-only.oj-button-full-chrome,
+.svm-button-login.oj-button.oj-default.oj-button-full-chrome .oj-button-button,
+.svm-button-login.oj-button.oj-focus-only.oj-button-full-chrome .oj-button-button {
+  background-color: #F9C918;
+  background-image: none;
+  border-color: transparent;
+  color: #A41935;
+  text-shadow: none; }
+
+.svm-button-login.oj-buttonset .oj-button-jqui.oj-active.oj-button-full-chrome, .svm-button-login.oj-button-jqui.oj-active.oj-button-full-chrome,
+.svm-button-login.oj-button.oj-active.oj-button-full-chrome .oj-button-button {
+  background-color: #FFFFFF;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  border-color: transparent;
+  color: #F9C918;
+  text-shadow: none; }
+
+.svm-login-input {
+  background-color: #FFFFFF;
+  color: #A41935;
+}
+/*------------------- */
+
+  .svm-dont-break-out {
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
@@ -102,4 +128,31 @@
       content: '';
       background: url("/css/images/FAB_icon@2x.png");
       background-size: 50px; }
-    
+
+/* -------------------------------------------------------- */
+/* Parts / Labor popup */
+      .grid-popup {
+        width: 80vw;  
+        height: 80vh; 
+        display: none;
+      } 
+      .grid-popup-body {
+        width: 75vw;  
+        height: 75vh; 
+        display: flex; 
+        flex-direction: column;
+        align-items: stretch;
+      } 
+      .grid-popup-header {
+        align-self: flex-start;
+        margin-bottom: 10px;
+      } 
+      .grid-popup-content {
+        align-self: stretch;
+        overflow: auto;
+        flex-basis: 60vh;
+      } 
+      .grid-popup-footer {
+        align-self: flex-end;
+        margin-top: 10px; 
+      }

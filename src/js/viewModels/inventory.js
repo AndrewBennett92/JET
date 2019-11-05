@@ -4,12 +4,12 @@
  * The Universal Permissive License (UPL), Version 1.0
  */
 /*
- * Your dashboard ViewModel code goes here
+ * Your customer ViewModel code goes here
  */
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
  function(ko, app, moduleUtils) {
 
-    function DashboardViewModel() {
+    function InventoryViewModel() {
       var self = this;
 
       // Header Config
@@ -17,10 +17,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
       moduleUtils.createView({'viewPath':'views/header.html'}).then(function(view) {
         self.headerConfig({'view':view, 'viewModel':new app.getHeaderModel()})
       })
-      
-      //Custom Code
-      var rootViewModel = ko.dataFor(document.getElementById('globalBody'));
-      self.userProfile = rootViewModel.userProfile;
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
@@ -58,6 +54,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new DashboardViewModel();
+    return new InventoryViewModel();
   }
 );

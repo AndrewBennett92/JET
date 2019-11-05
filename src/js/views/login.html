@@ -3,46 +3,32 @@
  The Universal Permissive License (UPL), Version 1.0
 -->
 
-<!--<div class="oj-applayout-fixed-top">
-    <header role="banner" class="oj-hybrid-applayout-header">
-        <oj-module config="[[headerConfig]]"></oj-module>
-    </header>
-</div>
-<div class="oj-applayout-content">
-    <div role="main" class="oj-hybrid-applayout-content">
-        <div class="oj-hybrid-padding">
-            <div id="form-container" style=" display: block; max-width: 300px; margin: auto;">
-                <oj-input-text id="loginuser" required="true" value="{{userName}}" placeholder="Username">
-                </oj-input-text>
-                <oj-input-password id="loginpassword" required="true" value="{{passWord}}" placeholder="Password"
-                    messages-custom="[[loginError]]"></oj-input-password>
-                <oj-button id="loginBtn" class="oj-button-lg oj-button-confirm" on-oj-action="[[logIn]]"
-                    chroming="full">Login
-                </oj-button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="oj-flex">
-    <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12">
-        <div class="oj-flex-item oj-sm-12 oj-md-2">
+<div class="oj-hybrid-applayout-page" style="background-color: #A41935;">
+    <div class="oj-applayout-fixed-top">
+        <header style="background-color: #FFFFFF;">
             <img id="img--100193258-1" :src="css/images/aztec-logo-grad.png" width="150">
-        </div>
+        </header>
     </div>
-</div>
-<div class="oj-flex">
-    <hr id="hr--100193258-1" class="oj-flex-item oj-sm-12 oj-md-12">
-</div>
 
-<div id="componentLogin" style="width: 1px; min-width: 100%; padding-top: 50%; background-color: #A41935;">
-    <div id="form-container" style=" display: block; max-width: 300px; margin: auto;">
-        <oj-input-text id="control1" required="true" value="{{ userName }}" placeholder="Username"></oj-input-text>
-        <oj-input-password id="control2" required="true" value="{{ passWord }}" placeholder="Password"
-            messages-custom="[[loginError]]"></oj-input-password>
-        <oj-button id="oj-button-969747089-1" class="oj-button-lg oj-button-confirm" on-oj-action="[[logIn]]"
-            chroming="full" style="display: block; max-width: 50%; margin: auto;">
-        Login
-        </oj-button>
+
+    <div role="main" class="oj-hybrid-applayout-content">
+        <div class="oj-hybrid-applayout-content">
+            <div id="componentLogin" style="padding-top: 25%">
+                <div id="form-container" style=" display: block; max-width: 300px; margin: auto;">
+                    <oj-validation-group id="tracker" valid="{{groupValid}}">
+                        <oj-input-text id="username" required="true" value="{{ userName }}" placeholder="Username"
+                            class="svm-login-input">
+                        </oj-input-text>
+                        <oj-input-password id="password" required="true" value="{{ passWord }}" placeholder="Password"
+                            messages-custom="[[loginError]]" class="svm-login-input"></oj-input-password>
+                    </oj-validation-group>
+                    <oj-button id="oj-button-login" class="oj-button-lg svm-button-login" on-oj-action="[[logIn]]"
+                        chroming="full" style="display: block; max-width: 50%; margin: auto;">
+                        Login
+                    </oj-button>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

@@ -46,7 +46,7 @@
   <body>
     <!-- template for rendering navigation bar items -->
     <script type="text/html" id="navTemplate">
-      <li><a href="#">
+      <li data-bind="visible: (!$data['loggedInOnly']|| $root.userLoggedIn() =='Y')"><a href="#">
         <span :class="[[$data['iconClass']]]"></span>
         <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
       </a></li>

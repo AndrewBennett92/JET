@@ -6,8 +6,9 @@
 /*
  * Your profile ViewModel code goes here
  */
-define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils', 'ojs/ojlistview', 'ojs/ojrouter', 'ojs/ojknockouttemplateutils', 'ojs/ojarraytabledatasource', 'ojs/ojtable', 'ojs/ojlabel', 'ojs/ojformlayout', 'ojs/ojinputtext'],
-  function (ko, app, data, moduleUtils, Router, KnockoutTemplateUtils) {
+define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils', 'ojs/ojrouter',
+  'ojs/ojknockouttemplateutils', 'ojs/ojanimation', 'ojs/ojlistview', 'ojs/ojarraytabledatasource', 'ojs/ojtable', 'ojs/ojlabel', 'ojs/ojformlayout', 'ojs/ojinputtext'],
+  function (ko, app, data, moduleUtils, Router, KnockoutTemplateUtils, AnimationUtils) {
 
     function CaseUpdatePartsViewModel() {
       var self = this;
@@ -22,26 +23,33 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
 
       self.partsGrid = ko.observableArray();
       self.partsData = ko.observableArray();
-      var fs_P17730_W17730A = data.getAISResponse("fs_P17730_W17730A");
-      if (typeof fs_P17730_W17730A === 'undefined' || fs_P17730_W17730A === null) {
-        //AIS Call is not present, error handling.
-        console.log("Parts List not retrieved");
-      } else {
-        //AIS Call has taken place, display data from session
-        var dataArray = fs_P17730_W17730A.data.gridData.rowset;
-        if (dataArray.length > 0) {
-          self.partsGrid(dataArray);
-          self.partsData(fs_P17730_W17730A.data);
-        }
-        else {
-          //No grid records, display message
-          console.log("No grid records");
-        }
-      }
 
-      self.listViewP17730_W17730A = ko.computed(function () {
-        return new oj.ArrayTableDataSource(self.partsGrid(), { idAttribute: 'rowIndex' });
-      });
+      //Handle popup for adding part
+      this.startAnimationListener = function (event) {
+        var ui = event.detail;
+        if (event.target.id !== "popup1")
+          return;
+
+        if ("open" === ui.action) {
+          event.preventDefault();
+          var options = { "direction": "top" };
+          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
+        }
+        else if ("close" === ui.action) {
+          event.preventDefault();
+          ui.endCallback();
+        }
+      }.bind(this);
+      this.openListener = function (event) {
+        var popup = document.getElementById('popup1');
+        popup.open('#btnGo');
+      }.bind(this);
+      this.cancelListener = function (event) {
+        var popup = document.getElementById('popup1');
+        popup.close();
+      }.bind(this);
+      //
+
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
@@ -55,7 +63,26 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
        * after being disconnected.
        */
       self.connected = function () {
-        // Implement if needed
+        self.fs_P17730_W17730A = ko.observable(data.getAISResponse("fs_P17730_W17730A"));
+        if (typeof self.fs_P17730_W17730A() === 'undefined' || self.fs_P17730_W17730A() === null) {
+          //AIS Call is not present, error handling.
+          console.log("Parts List not retrieved");
+        } else {
+          //AIS Call has taken place, display data from session
+          self.partsData(self.fs_P17730_W17730A().data);
+          var dataArray = self.fs_P17730_W17730A().data.gridData.rowset;
+          if (dataArray.length > 0) {
+            self.partsGrid(dataArray);
+          }
+          else {
+            //No grid records, display message
+            console.log("No grid records");
+          }
+        }
+
+        self.listViewP17730_W17730A = ko.computed(function () {
+          return new oj.ArrayTableDataSource(self.partsGrid(), { idAttribute: 'rowIndex' });
+        });
       };
 
       /**

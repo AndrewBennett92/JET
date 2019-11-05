@@ -18,7 +18,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
                     self.headerConfig({'view': view, 'viewModel': new app.getHeaderModel()})
                 })
                 
-                self.fs_P90CD002 = data.getAISResponse("fs_P90CD002_W90CD002B");
+
 
                 // Below are a set of the ViewModel methods invoked by the oj-module component.
                 // Please reference the oj-module jsDoc for additional information.
@@ -33,6 +33,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
                  * after being disconnected.
                  */
                 self.connected = function () {
+                    self.fs_P90CD002 = ko.observable(data.getAISResponse("fs_P90CD002_W90CD002B"));
                     // Implement if needed
                 };
 

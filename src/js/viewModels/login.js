@@ -19,18 +19,14 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
             function LoginViewModel() {
                 var self = this;
 
-                // Header Config
-                self.headerConfig = ko.observable({'view': [], 'viewModel': null});
-                moduleUtils.createView({'viewPath': 'views/header.html'}).then(function (view) {
-                    self.headerConfig({'view': view, 'viewModel': new app.getHeaderModel()})
-                })
-
                 self.groupValid = ko.observable();
                 self.userName = ko.observable();
                 self.passWord = ko.observable();
                 self.loginError = ko.observable();
 
                 self.logIn = function () {
+                    if (self.groupValid() !== "valid")
+                    return;
 
                     //Call the data service to login
                     console.log("Calling login service with user: " + self.username);
@@ -50,9 +46,7 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
                             }
                         ];
                         self.loginError (self.messages);
-                    });
-
-
+                    });                 
 
                 }
 

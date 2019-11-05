@@ -3,7 +3,7 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <!-- This is where your main page content will be loaded -->
-<oj-button id='addParts' class='svm-fab' chroming='half' display='icons'>
+<oj-button id='addParts' class='svm-fab' chroming='half' display='icons' on-click='[[openListener]]'>
     <span slot='startIcon' class='oj-fwk-icon svm-add-icon'></span>
     Add Part
 </oj-button>
@@ -15,7 +15,8 @@
         </div>
         <div class="oj-flex-bar-middle oj-sm-align-items-center">
             <span id="incidentPriority" class="oj-hybrid-padding-start">
-                <oj-bind-text value="[[partsData().txtOrderNumber_175.value + ' - ' + partsData().txtOrderNumber_175.assocDesc]]">
+                <oj-bind-text
+                    value="[[partsData().txtOrderNumber_175.value + ' - ' + partsData().txtOrderNumber_175.assocDesc]]">
                 </oj-bind-text>
             </span>
         </div>
@@ -78,4 +79,31 @@
             </div>
         </template>
     </oj-list-view>
+</div>
+<div id="popupWrapper">
+    <oj-popup id="popup1" class="grid-popup" tail="none" position.my.horizontal="center" position.my.vertical="bottom"
+        position.at.horizontal="center" position.at.vertical="bottom" position.of="window" position.offset.y="-10"
+        modality="modal" on-oj-animate-start="[[startAnimationListener]]">
+        <div class="grid-popup-body">
+            <div class="grid-popup-header">
+                <h5>Add a part</h5>
+            </div>
+            <div class="grid-popup-content">
+                <oj-form-layout id="form-container">
+                    <oj-input-text id="input" required value="text" label-hint="Item"></oj-input-text>
+                    <oj-label id="inputgroup" label-id="inputgrouplabel">Branch</oj-label>
+                    <div class="oj-form-control-group" aria-labelledby="inputgrouplabel" role="group">
+                        <oj-input-text aria-label="Branch for part" value="text"></oj-input-text>
+                        <oj-input-text aria-label="Branch descriptio for part" value="text" disabled="true" readonly="true"></oj-input-text>
+                    </div>
+                    <oj-input-text id="input2" value="text" label-hint="Quantity" ></oj-input-text>
+                </oj-form-layout>
+            </div>
+            <div class="grid-popup-footer">
+                <oj-button id="btnCancel" on-click="[[cancelListener]]">
+                    Cancel
+                </oj-button>
+            </div>
+        </div>
+    </oj-popup>
 </div>
