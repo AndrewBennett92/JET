@@ -14,6 +14,28 @@
 }
 
 /* -------------------------------------------------------- */
+/* Bottom Nav */
+.oj-hybrid-applayout-navbar-page, .oj-hybrid-applayout-navbar-fixed-top, .oj-hybrid-applayout-navbar-app, .oj-hybrid-applayout-navbar-fixed-bottom, .oj-hybrid-applayout-navbar {
+  background-color: #A41935;
+}
+
+.oj-applayout-fixed-bottom .oj-hybrid-applayout-navbar-app {
+  border-top: 1px solid #A41935;
+}
+
+.oj-navigationlist-app-level.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+  color: #ffffff;
+}
+
+.oj-navigationlist-app-level.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled):not(.oj-hover):not(.oj-selected) .oj-navigationlist-item-icon {
+  color: #F9C918;
+}
+
+.oj-navigationlist-app-level.oj-navigationlist-horizontal:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.oj-selected:not(.oj-hover) .oj-navigationlist-item-icon {
+  color: #fafafa;
+}
+
+/* -------------------------------------------------------- */
 /* login page */
 .svm-button-login.oj-buttonset .oj-button-jqui.oj-default.oj-button-full-chrome,
 .svm-button-login.oj-buttonset .oj-button-jqui.oj-focus-only.oj-button-full-chrome, .svm-button-login.oj-button-jqui.oj-default.oj-button-full-chrome, .svm-button-login.oj-button-jqui.oj-focus-only.oj-button-full-chrome,

@@ -164,7 +164,7 @@ define(['jquery'], function ($) {
 
     function servicecall(input, service, orchestration, callback)
     {
-        //console.log("service " + new Date().getTime());
+        console.log("AIS" , service , "call on " , new Date() , "with the following data: " , input);
 
         //register token as being used, so it won't be logged out by other concurent calls
         servicecall.usingToken = getToken();

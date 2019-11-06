@@ -32,6 +32,9 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
 
             // Custom Code
             self.userProfile = ko.observable();
+
+            //Global variable to track selected case
+            self.selectedCase = ko.observable();
             //Parse the tokenrequest response to variable and navigate to next page
             self.processUserProfile = function (response) {
                 var result = response;

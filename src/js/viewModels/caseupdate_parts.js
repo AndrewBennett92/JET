@@ -21,8 +21,13 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
         self.headerConfig({ 'view': view, 'viewModel': new app.getHeaderModel() })
       })
 
+      self.currentOrder = ko.observable();
       self.partsGrid = ko.observableArray();
       self.partsData = ko.observableArray();
+      self.inputItemNumber = ko.observable();
+      self.inputBranch = ko.observable();
+      self.inputQuantity = ko.observable(1);
+      self.partsGridErrors = ko.observableArray();
 
       //Handle popup for adding part
       this.startAnimationListener = function (event) {
@@ -50,6 +55,79 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
       }.bind(this);
       //
 
+      self.addPart = function () {
+        //Update record
+        var input =
+        {
+          formName: "P17730_W17730A",
+          formServiceAction: "U",
+          // returnControlIDs: "28",
+          formInputs: [
+            { value: app.selectedCase, id: "11" },
+            { value: "CSMS", id: "17" }
+          ],
+          formActions: [
+            {
+              gridAction:
+              {
+                gridID: "1",
+                gridRowInsertEvents: [
+                  {
+                    gridColumnEvents: [
+                      {
+                        value: self.inputItemNumber(),
+                        command: "SetGridCellValue",
+                        columnID: "297"
+                      },
+                      {
+                        value: self.inputBranch(),
+                        command: "SetGridCellValue",
+                        columnID: "308"
+                      },
+                      {
+                        value: self.inputQuantity(),
+                        command: "SetGridCellValue",
+                        columnID: "300"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "command": "DoAction",
+              "controlID": "12"
+            }
+          ]
+
+        };
+        console.log("input for grid update: " , input);
+        var updatePartsGrid = data.servicecall(input, "FORM_SERVICE");
+        updatePartsGrid.done(function (response) {
+          //Save form response
+          var dataArray = response.fs_P17730_W17730A.data.gridData.rowset;
+          var errorArray = response.fs_P17730_W17730A.errors;
+          //Retrieve any errors from the form
+          if (errorArray.length > 0) {
+            self.partsGridErrors(errorArray);
+          }
+          //Retrieve latest grid data
+          if (dataArray.length > 0) {
+            self.partsGrid(dataArray);
+            sessionStorage.removeItem("fs_P17730_W17730A");
+            sessionStorage.setItem("fs_P17730_W17730A", JSON.stringify(response));
+            self.cancelListener();
+          }
+        });
+        updatePartsGrid.fail(function (response) {
+          var test = data.retrieveError(response.status);
+          //  var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
+          //  rootViewModel.serviceError(test);
+          //     self.serviceError(test);
+        });
+
+      }
+
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
@@ -71,6 +149,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
           //AIS Call has taken place, display data from session
           self.partsData(self.fs_P17730_W17730A().data);
           var dataArray = self.fs_P17730_W17730A().data.gridData.rowset;
+          
           if (dataArray.length > 0) {
             self.partsGrid(dataArray);
           }

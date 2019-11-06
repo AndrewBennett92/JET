@@ -90,16 +90,23 @@
             </div>
             <div class="grid-popup-content">
                 <oj-form-layout id="form-container">
-                    <oj-input-text id="input" required value="text" label-hint="Item"></oj-input-text>
+                    <oj-input-text id="input" label-hint="Item" value="{{inputItemNumber}}">
+                    </oj-input-text>
                     <oj-label id="inputgroup" label-id="inputgrouplabel">Branch</oj-label>
                     <div class="oj-form-control-group" aria-labelledby="inputgrouplabel" role="group">
-                        <oj-input-text aria-label="Branch for part" value="text"></oj-input-text>
-                        <oj-input-text aria-label="Branch descriptio for part" value="text" disabled="true" readonly="true"></oj-input-text>
+                        <oj-input-text aria-label="Branch for part" value="{{inputBranch}}"></oj-input-text>
+                        <oj-input-text aria-label="Branch descriptio for part" value="text" disabled="true"
+                            readonly="true"></oj-input-text>
                     </div>
-                    <oj-input-text id="input2" value="text" label-hint="Quantity" ></oj-input-text>
+                    <oj-label for="inputquantity-id">Quantity</oj-label>
+                    <oj-input-number id="inputnumber-id" min="0" step="1" value="{{inputQuantity}}">
+                    </oj-input-number>
                 </oj-form-layout>
             </div>
             <div class="grid-popup-footer">
+                <oj-button id="btnOK" on-click="[[addPart]]">
+                    OK
+                </oj-button>
                 <oj-button id="btnCancel" on-click="[[cancelListener]]">
                     Cancel
                 </oj-button>
