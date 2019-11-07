@@ -89,6 +89,11 @@
                 <h5>Add a part</h5>
             </div>
             <div class="grid-popup-content">
+                <!-- Error Messages -->
+                <div id="inlineMessages">
+                    <oj-messages messages="[[partsGridErrors]]">
+                    </oj-messages>
+                </div>
                 <oj-form-layout id="form-container">
                     <oj-input-text id="input" label-hint="Item" value="{{inputItemNumber}}">
                     </oj-input-text>

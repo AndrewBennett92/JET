@@ -51,6 +51,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
       }.bind(this);
       this.cancelListener = function (event) {
         var popup = document.getElementById('popup1');
+        self.partsGridErrors([]);
         popup.close();
       }.bind(this);
       //
@@ -101,18 +102,26 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
           ]
 
         };
-        console.log("input for grid update: " , input);
+
         var updatePartsGrid = data.servicecall(input, "FORM_SERVICE");
         updatePartsGrid.done(function (response) {
           //Save form response
+          console.log("Add part response:" , response);
           var dataArray = response.fs_P17730_W17730A.data.gridData.rowset;
           var errorArray = response.fs_P17730_W17730A.errors;
           //Retrieve any errors from the form
           if (errorArray.length > 0) {
-            self.partsGridErrors(errorArray);
+            for (var i = 0, len = errorArray.length; i < len; i++) {
+              let error = {
+                severity: 'error',
+                summary: errorArray[i].TITLE,
+                detail: errorArray[i].MOBILE
+              };
+              self.partsGridErrors.push(error);
+            }
           }
           //Retrieve latest grid data
-          if (dataArray.length > 0) {
+          if (dataArray.length > 0 && !errorArray.length > 0) {
             self.partsGrid(dataArray);
             sessionStorage.removeItem("fs_P17730_W17730A");
             sessionStorage.setItem("fs_P17730_W17730A", JSON.stringify(response));
@@ -149,7 +158,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
           //AIS Call has taken place, display data from session
           self.partsData(self.fs_P17730_W17730A().data);
           var dataArray = self.fs_P17730_W17730A().data.gridData.rowset;
-          
+
           if (dataArray.length > 0) {
             self.partsGrid(dataArray);
           }
