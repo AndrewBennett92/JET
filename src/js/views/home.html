@@ -4,7 +4,7 @@
  -->
 <div class="oj-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
-      <!--
+    <!--
        ** Oracle JET V7.2.0 hybrid mobile application header pattern.
        ** Please see the Oracle JET Cookbook App Shell: Hybrid Mobile demos for
        ** more information on how to use this pattern.
@@ -17,14 +17,19 @@
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
       <div class="oj-hybrid-padding">
-        <div class="profile-section" data-bind="with: userProfile">
-              <h2 class="profile-name">
-               <span>Welcome, <oj-bind-text value="[[userInfo.alphaName]]">!</oj-bind-text></span>
-              </h2>
-               <p>Login Environment: <oj-bind-text value="[[environment]]"></oj-bind-text></p>
-               <p>Role: <oj-bind-text value="[[role]]"></oj-bind-text></p>
-               <p>Username: <oj-bind-text value="[[username]]"></oj-bind-text></p>
-            </div>
+        <div class="profile-section">
+          <h2 class="profile-name">
+            <span>Welcome, <oj-bind-text value="[[userProfile().userInfo.alphaName]]">!</oj-bind-text></span>
+          </h2>
+          <p>Username: <oj-bind-text value="[[userProfile().username]]"></oj-bind-text>
+          </p>
+          <p>Home Business Unit: <oj-bind-text value="[[homeMCU().value + ' - ' + homeMCU().assocDesc ]]"></oj-bind-text>
+          </p>
+          <p>Login Environment: <oj-bind-text value="[[userProfile().environment]]"></oj-bind-text>
+          </p>
+          <p>Role: <oj-bind-text value="[[userProfile().role]]"></oj-bind-text>
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -19,8 +19,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
       })
       
       //Custom Code
-      var rootViewModel = ko.dataFor(document.getElementById('globalBody'));
-      self.userProfile = rootViewModel.userProfile;
+     // var rootViewModel = ko.dataFor(document.getElementById('globalBody'));
+      self.userProfile = app.userProfile;
+      self.homeMCU = app.homeMCU;
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.

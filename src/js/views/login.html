@@ -6,29 +6,30 @@
 <div class="oj-hybrid-applayout-page" style="background-color: #A41935;">
     <div class="oj-applayout-fixed-top">
         <header style="background-color: #FFFFFF;">
-            <img id="img--100193258-1" :src="css/images/aztec-logo-grad.png" width="150">
+            <img id="imglogo" :src="css/images/aztec-logo-grad.png" width="150">
         </header>
     </div>
 
-
-    <div role="main" class="oj-hybrid-applayout-content">
-        <div class="oj-hybrid-applayout-content">
-            <div id="componentLogin" style="padding-top: 25%">
-                <div id="form-container" style=" display: block; max-width: 300px; margin: auto;">
-                    <oj-validation-group id="tracker" valid="{{groupValid}}">
-                        <oj-input-text id="username" required="true" value="{{ userName }}" placeholder="Username"
-                            class="svm-login-input">
-                        </oj-input-text>
-                        <oj-input-password id="password" required="true" value="{{ passWord }}" placeholder="Password"
-                            messages-custom="[[loginError]]" class="svm-login-input"></oj-input-password>
-                    </oj-validation-group>
-                    <oj-button id="oj-button-login" class="oj-button-lg svm-button-login" on-oj-action="[[logIn]]"
-                        chroming="full" style="display: block; max-width: 50%; margin: auto;">
-                        Login
-                    </oj-button>
-                </div>
-            </div>
-
-        </div>
+    <div class="logincontainer">
+        <oj-bind-if test="[[loggingIn()===true]]">
+            <p style="color: #FFFFFF; font-weight: bold;">
+                <span style="vertical-align: text-top; color: #FFFFFF; font-weight: bold;"><img
+                        src="css/images/spinnerlogin.gif"></span>
+                Logging you in...
+            </p>
+        </oj-bind-if>
+        <oj-bind-if test="[[loggingIn()===false]]">
+            <oj-validation-group id="tracker" valid="{{groupValid}}">
+                <oj-input-text id="username" required="true" value="{{ userName }}" placeholder="Username"
+                    class="svm-login-input">
+                </oj-input-text>
+                <oj-input-password id="password" required="true" value="{{ passWord }}" placeholder="Password"
+                    messages-custom="[[loginError]]" class="svm-login-input">
+                </oj-input-password>
+            </oj-validation-group>
+            <oj-button id="oj-button-login" class="oj-button-lg svm-button-login" on-oj-action="[[logIn]]"
+                chroming="full" style="display: block; max-width: 50%; margin: auto;">
+                Login
+            </oj-button>
+        </oj-bind-if>
     </div>
-</div>

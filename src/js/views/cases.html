@@ -15,9 +15,126 @@
     </div>
 
     <!-- This is where your main page content will be loaded -->
-
-
     <div class="oj-applayout-content">
+        <oj-refresher id="refresher" refresh-content="[[fetch_serviceOrders]]" text="Checking for new cases...">
+            <oj-list-view id="oj-list-view--1121957485-1" selection-mode="single" data="[[ listViewP48201_W48201F ]]"
+                on-selection-changed="[[caseSelected]]" class="oj-flex-item oj-sm-12 oj-full-width oj-md-11">
+                <template slot="itemTemplate">
+                    <div class="oj-offcanvas-outer-wrapper demo-overflow-control">
+                        <div class="oj-offcanvas-inner-wrapper">
+                            <div class="oj-flex-bar oj-sm-flex-wrap-nowrap oj-hybrid-padding">
+                                <div
+                                    class="oj-flex-bar-start demo-incidents-list-item-start oj-sm-justify-content-center oj-sm-align-items-center demo-flex-zero oj-sm-flex-direction-column">
+                                    <img id="incidentPriorityIcon" src="css/images/spacer.png"
+                                        :class="[['case-icon-32 case-priority-' + $current.data.sPriority_449.value + '-icon']]">
+                                    <div :id="[[$current.data.rowIndex + 'PriorityLabel']]"
+                                        class="demo-incidents-list-item-priority">
+                                        <oj-bind-text value="[[$current.data.sPriority_449.value]]"></oj-bind-text>
+                                    </div>
+                                </div>
+                                <div
+                                    class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap oj-sm-justify-content-center demo-flex-bar-no-overflow">
+                                    <div class="oj-flex-bar">
+                                        <div class="oj-flex-bar-start demo-incidents-list-item-problem demo-ellipsis-word-truncation"
+                                            :id="[[$current.data.rowIndex+'Problem']]">
+                                            <oj-bind-text value="[[$current.data.sWorkOrderDescription_217.value]]">
+                                            </oj-bind-text>
+                                        </div>
+                                        <div class="oj-flex-bar-end demo-incidents-list-item-status demo-flex-zero"
+                                            :id="[[$current.data.rowIndex+'Status']]">
+                                            <oj-bind-text value="[[$current.data.mnOrderNumber_7.value]]"></oj-bind-text>
+                                        </div>
+                                    </div>
+                                    <div class="oj-flex-bar">
+                                        <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                                            :id="[[$current.data.rowIndex+'Customer']]">
+                                            <oj-bind-text
+                                                value="[[$current.data.mnCustomerNumber_24.value + ' - ' + $current.data.sCustomerName_475.value]]">
+                                            </oj-bind-text>
+                                        </div>
+                                        <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                                            :id="[[$current.data.rowIndex+'TimeStamp']]">
+                                            <oj-bind-text value="[[$current.data.dtOrderDate_19.value]]"></oj-bind-text>
+                                        </div>
+                                    </div>
+                              <!--     <div class="oj-flex-bar">
+                                        <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                                            :id="[[$current.data.rowIndex+'Case']]">
+                                            <oj-bind-text value="Case Number">
+                                            </oj-bind-text>
+                                        </div>
+                                        <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                                            :id="[[$current.data.rowIndex+'CaseNumber']]">
+                                            <oj-bind-text value="[[$current.data.mnOrderNumber_7.value]]">
+                                            </oj-bind-text>
+                                        </div>
+                                    </div> -->
+                                    <div class="oj-flex-bar">
+                                        <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                                            :id="[[$current.data.rowIndex+'Serial']]">
+                                            <oj-bind-text value="[[$current.data.sSerialNumber_563.value]]">
+                                            </oj-bind-text>
+                                        </div>
+                                        <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                                            :id="[[$current.data.rowIndex+'EquipDesc']]">
+                                            <oj-bind-text value="[[$current.data.sEquipmentDescription_487.value]]">
+                                            </oj-bind-text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </template>
+            </oj-list-view>
+        </oj-refresher>
+    <!-- <div id="popupWrapper">
+            <oj-popup id='filterpopup' class='demo-filter-popup demo-popup' tail='none' chrome='none'>
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-end oj-hybrid-padding">
+                        <a id="closeFilterBtn" href="#">Done</a>
+                    </div>
+                </div>
+                <oj-form-layout>
+                    <oj-label id='priorityLabel' class='demo-filter-form-category-label oj-hybrid-padding-start'>
+                        PRIORITY</oj-label>
+                    <oj-checkboxset aria-labelledby='priorityLabel' value='{{priorityFilterArr}}'
+                        class='oj-checkboxset-no-chrome oj-checkboxset-input-end'>
+                        <oj-option id='highopt' value='high'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 svm-priority-high-icon'
+                                slot='startIcon'></img>
+                            High
+                        </oj-option>
+                        <oj-option id='normalopt' value='normal'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 svm-priority-normal-icon'
+                                slot='startIcon'></img>
+                            Normal
+                        </oj-option>
+                        <oj-option id='lowopt' value='low'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 svm-priority-low-icon'
+                                slot='startIcon'></img>
+                            Low
+                        </oj-option>
+                    </oj-checkboxset>
+                    <oj-label id='statusLabel' class='demo-filter-form-category-label oj-hybrid-padding-start'>STATUS
+                    </oj-label>
+                    <oj-checkboxset aria-labelledby='statusLabel' value='{{statusFilterArr}}'
+                        class='oj-checkboxset-no-chrome oj-checkboxset-input-end'>
+                        <oj-option id='openopt' value='open'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 demo-status-open-icon'
+                                slot='startIcon'></img>Open</oj-option>
+                        <oj-option id='acceptedopt' value='accepted'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 demo-status-accepted-icon'
+                                slot='startIcon'></img>Accepted</oj-option>
+                        <oj-option id='closedopt' value='closed'>
+                            <img src='css/images/spacer.png' class='svm-icon-32 demo-status-closed-icon'
+                                slot='startIcon'></img>Closed</oj-option>
+                    </oj-checkboxset>
+                </oj-form-layout>
+            </oj-popup>
+        </div> -->
+    </div> 
+
+    <!--  <div class="oj-applayout-content">
         <div role="main" class="oj-hybrid-applayout-content">
             <div class="oj-hybrid-padding">
                 <div class="oj-flex">
@@ -88,10 +205,11 @@
                                     <oj-bind-text value="[[$current.data.sContactName_533.value]]"></oj-bind-text>
                                 </p>
                             </div>
+                        </template>
+                    </oj-list-view>
                 </div>
-                </template>
-                </oj-list-view>
             </div>
         </div>
-    </div>
+    </div> -->
+
 </div>

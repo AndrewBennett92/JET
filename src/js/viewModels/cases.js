@@ -27,6 +27,10 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
 
             self.allOrders = ko.observableArray();
 
+            //Filtering of cases
+            self.priorityFilterArr = ko.observable(['high', 'normal', 'low']);
+            self.statusFilterArr = ko.observable(['VM', 'VA', 'VV']);
+
             //    var fs_serviceOrders = data.getAISResponse("fs_serviceOrders");
             //    if (typeof fs_serviceOrders === 'undefined' || fs_serviceOrders === null) {
             //        //AIS Call has not taken place for Form
@@ -40,40 +44,46 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
             //    }
 
             self.fetch_serviceOrders = function () {
-                var input =
-                {
-                    formName: "P48201_W48201F",
-                    returnControlIDs: "1[7,217,11,449,129,487,563,24,475,532,533,178,480,39,19,9,447]",
-                    formActions: [
-                        {
-                            "value": "SV",
-                            "command": "SetQBEValue",
-                            "controlID": "1[39]"
-                        },
-                        {
-                            "command": "DoAction",
-                            "controlID": "6"
+                var promise = new Promise(function (resolve, reject) {
+                    var input =
+                    {
+                        formName: "P48201_W48201F",
+                        returnControlIDs: "1[7,217,11,449,129,487,563,24,475,532,533,178,480,39,19,9,447]",
+                        formActions: [
+                            {
+                                "value": "SV",
+                                "command": "SetQBEValue",
+                                "controlID": "1[39]"
+                            },
+                            {
+                                "command": "DoAction",
+                                "controlID": "6"
+                            }
+                        ]
+                    };
+
+
+                    var serviceOrders = data.servicecall(input, "FORM_SERVICE");
+                    serviceOrders.done(function (response) {
+                        console.log("P48201_W48201F", response);
+                        //Save form response
+                        sessionStorage.setItem("fs_P48201_W48201F", JSON.stringify(response));
+                        var dataArray = response.fs_P48201_W48201F.data.gridData.rowset;
+                        if (dataArray.length > 0) {
+                            self.allOrders(dataArray);
+                            console.log("dataArray", dataArray);
+                            console.log("allOrders", self.allOrders());
                         }
-                    ]
-                };
 
-                var serviceOrders = data.servicecall(input, "FORM_SERVICE");
-                serviceOrders.done(function (response) {
-                    console.log("P48201_W48201F", response);
-                    //Save form response
-                    sessionStorage.setItem("fs_P48201_W48201F", JSON.stringify(response));
-                    var dataArray = response.fs_P48201_W48201F.data.gridData.rowset;
-                    if (dataArray.length > 0) {
-                        self.allOrders(dataArray);
-                        console.log("dataArray", dataArray);
-                        console.log("allOrders", self.allOrders());
-                    }
-
-                });
-                serviceOrders.fail(function (response) {
-                    var test = data.retrieveError(response.status);
-                });
-            };
+                        resolve();
+                    });
+                    serviceOrders.fail(function (response) {
+                        var test = data.retrieveError(response.status);
+                        reject();
+                    });
+                }.bind(this));
+                return promise;
+            }
 
 
             self.listViewP48201_W48201F = ko.computed(function () {

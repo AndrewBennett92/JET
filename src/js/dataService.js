@@ -8,8 +8,7 @@
 'use strict';
 define(['jquery'], function ($) {
 
-    var LocalDevConfig = new function ()
-    {
+    var LocalDevConfig = new function () {
         this.AIS_HOST = "ais.aztecofficedev.com";
         this.AIS_PORT = "443";
         this.AIS_PROTOCOL = "https";
@@ -19,7 +18,6 @@ define(['jquery'], function ($) {
         this.ENVIRONMENT = "JDV910";
         this.ROLE = "*ALL";
         this.DEVICE_NAME = "TestAIS";
-        // this.NODE_JS_SERVER = null;
     };
     // read-only MBE
     var baseUrl = LocalDevConfig.AIS_PROTOCOL + "://" + LocalDevConfig.AIS_HOST + ":" + LocalDevConfig.AIS_PORT;
@@ -28,17 +26,17 @@ define(['jquery'], function ($) {
     };
 
     function login(username, password) {
-        console.log("In login function on dataService. User: " + username);
+        console.log("AIS tokenrequest call on ", new Date(), "for: ", username);
         if (username && password) {
 
             var input =
-                    {
-                        deviceName: LocalDevConfig.DEVICE_NAME,
-                        environment: LocalDevConfig.ENVIRONMENT,
-                        role: LocalDevConfig.ROLE,
-                        username: username,
-                        password: password
-                    };
+            {
+                deviceName: LocalDevConfig.DEVICE_NAME,
+                environment: LocalDevConfig.ENVIRONMENT,
+                role: LocalDevConfig.ROLE,
+                username: username,
+                password: password
+            };
 
             return $.ajax({
                 type: 'POST',
@@ -49,17 +47,16 @@ define(['jquery'], function ($) {
             });
         } else {
             return $.when(null);
-            console.log($.when);
         }
     }
 
     function logout(token) {
         if (token) {
-
+            console.log("AIS logout call on ", new Date(), "with the following token: ", token);
             var input =
-                    {
-                        token: token
-                    };
+            {
+                token: token
+            };
 
             return $.ajax({
                 type: 'POST',
@@ -137,34 +134,33 @@ define(['jquery'], function ($) {
                 return "/formservice";
             case "DATA_SERVICE":
                 return "/dataservice";
-            case "BATCH_FORM_SERVICE" :
+            case "BATCH_FORM_SERVICE":
                 return "/batchformservice";
-            case "APP_STACK_SERVICE" :
+            case "APP_STACK_SERVICE":
                 return "/v2/appstack";
-            case "PO_SERVICE" :
+            case "PO_SERVICE":
                 return "/poservice";
-            case "LOG_SERVICE" :
+            case "LOG_SERVICE":
                 return "/v2/log";
-            case "JARGON_SERVICE" :
+            case "JARGON_SERVICE":
                 return "/jargon";
-            case "PREFERENCE_SERVICE" :
+            case "PREFERENCE_SERVICE":
                 return "/preference";
-            case "WATCHLIST_SERVICE" :
+            case "WATCHLIST_SERVICE":
                 return "/v2/watchlist";
-            case "UDO_GETALL_SERVICE" :
+            case "UDO_GETALL_SERVICE":
                 return "/udomanager/getallobjects";
-            case "UDO_GETKEY_SERVICE" :
+            case "UDO_GETKEY_SERVICE":
                 return "/udomanager/getobjectbykey";
-            case "MEDIA_OBJECT_TEXT" :
+            case "MEDIA_OBJECT_TEXT":
                 return "/file/gettext";
-            case "ORCHESTRATOR_SERVICE" :
+            case "ORCHESTRATOR_SERVICE":
                 return "/v3/orchestrator";
         }
     }
 
-    function servicecall(input, service, orchestration, callback)
-    {
-        console.log("AIS" , service , "call on " , new Date() , "with the following data: " , input);
+    function servicecall(input, service, orchestration, callback) {
+        console.log("AIS", service, "call on ", new Date(), "with the following data: ", input);
 
         //register token as being used, so it won't be logged out by other concurent calls
         servicecall.usingToken = getToken();
@@ -178,8 +174,7 @@ define(['jquery'], function ($) {
         }
 
         //don't call without a token
-        if (input.token !== null)
-        {
+        if (input.token !== null) {
             input.deviceName = "TestAIS";
             //   if (LocalDevConfig.JAS_SERVER !== null)
             //   {

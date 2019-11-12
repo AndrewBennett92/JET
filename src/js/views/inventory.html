@@ -4,7 +4,7 @@
  -->
 <div class="oj-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
-      <!--
+    <!--
        ** Oracle JET V7.2.0 hybrid mobile application header pattern.
        ** Please see the Oracle JET Cookbook App Shell: Hybrid Mobile demos for
        ** more information on how to use this pattern.
@@ -17,9 +17,73 @@
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
       <div class="oj-hybrid-padding">
-        <h1>Inventory Content Area</h1>
-        <div>
-            Inventory Area.
+        <!--    <div id="form1" style="font-size: smaller;">
+          <oj-label for="search">Inventory Search</oj-label>
+          <oj-combobox-one id="search" options="[[selectOnefs_P41026_W41026E]]" filter-on-open="rawValue"
+            on-oj-value-updated="[[search]]" placeholder="Search..." clear-icon="always"
+            style="max-width:95%; font-size: smaller;">
+            <a slot="end" id="search-button"
+              class="demo-search-button oj-fwk-icon-magnifier oj-fwk-icon oj-clickable-icon-nocontext"
+              style="width: 32px;" role="button" aria-label="search" clear-icon="always" on-click="[[search]]"></a>
+          </oj-combobox-one>
+          <br /><br />
+          <div style="color: blue">
+            <oj-bind-text value="[[searchTriggered]]"></oj-bind-text>
+          </div>
+          <div style="color: blue">
+            <oj-bind-text value="[[searchTerm]]"></oj-bind-text>
+          </div>
+          <div style="color: blue">
+            <oj-bind-text value="[[searchTimeStamp]]"></oj-bind-text>
+          </div>
+        </div> -->
+        <div class="inventoryHeader">
+          <oj-label id="label" class="oj-label-inline" for="filter">Search:</oj-label>
+          <oj-input-text id="filter" placeholder="Type to filter inventory"
+            on-raw-value-changed="[[handleValueChanged]]" value="{{filter}}" style="max-width:70%;"></oj-input-text>
+          <oj-button id="clearButton" on-oj-action='[[clearClick]]' display='icons' chroming='half'>
+            <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-cross03'></span>
+            Clear
+          </oj-button>
+        </div>
+        <br>
+        <div class="inventoryContent">
+          <oj-list-view id="oj-list-view--1121957485-1" selection-mode="single" data="[[ dataprovider ]]"
+            class="oj-flex-item oj-sm-12 oj-full-width oj-md-11" style="width:100%;">
+            <template slot="itemTemplate">
+              <div class="oj-offcanvas-outer-wrapper demo-overflow-control">
+                <div class="oj-offcanvas-inner-wrapper">
+                  <div
+                    class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap oj-sm-justify-content-center demo-flex-bar-no-overflow">
+                    <div class="oj-flex-bar">
+                      <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                        :id="[[$current.data.rowIndex+'Customer']]">
+                        <oj-bind-text
+                          value="[[$current.data.sItemNumber_8.value + ' - ' + $current.data.sDescription_10.value]]">
+                        </oj-bind-text>
+                      </div>
+                      <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                        :id="[[$current.data.rowIndex+'TimeStamp']]">
+                        <oj-bind-text value="[[$current.data.sCostRule_38.value]]"></oj-bind-text>
+                      </div>
+                    </div>
+                    <div class="oj-flex-bar">
+                      <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                        :id="[[$current.data.rowIndex+'Serial']]">
+                        <oj-bind-text value="[[$current.data.sSearchText_34.value]]">
+                        </oj-bind-text>
+                      </div>
+                      <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                        :id="[[$current.data.rowIndex+'EquipDesc']]">
+                        <oj-bind-text value="[[$current.data.sDescription2_86.value]]">
+                        </oj-bind-text>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </oj-list-view>
         </div>
       </div>
     </div>

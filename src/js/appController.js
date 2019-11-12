@@ -32,6 +32,7 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
 
             // Custom Code
             self.userProfile = ko.observable();
+            self.homeMCU = ko.observable();
 
             //Global variable to track selected case
             self.selectedCase = ko.observable();
@@ -41,9 +42,7 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
 
                 if (result) {
                     self.userProfile(result);
-                    self.userLoggedIn("Y");
                     sessionStorage.setItem("tokenrequest", JSON.stringify(result));
-                    this.router.go('home');
                 }
             }
 
@@ -97,12 +96,9 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                     event.preventDefault()
                     var logout = data.logout(data.getToken());
                     logout.always(function (response) {
-                        console.log("Logout executed");
-                        console.log(response);
                         self.userLoggedIn("N");
-                        data.clearStorage();
-                        vm.goToSignIn();
-
+                        data.clearStorage()
+                        self.goToSignIn();
                     });
                     return;
                 }

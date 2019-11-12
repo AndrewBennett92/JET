@@ -77,6 +77,16 @@
   background-color: #FFFFFF;
   color: #A41935;
 }
+
+.logincontainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
 /*------------------- */
 
   .svm-dont-break-out {
@@ -88,6 +98,163 @@
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto; }
+
+/* Cases List */
+/*--------------------------------*/
+/* -------------------------------------------------------- */
+/* incidents list style */
+.demo-incidents-list-item-start {
+  padding-right: 0.5rem;
+  min-width: 3rem; }
+
+.demo-incidents-list-item-problem {
+  font-size: 1.063rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-right: 10px; }
+
+.demo-incidents-list-item-status {
+  font-size: 0.938rem;
+  color: rgba(0, 0, 0, 0.6); }
+
+.demo-incidents-list-item-priority {
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  color: black;
+  padding-top: 0.2rem; }
+
+.demo-incidents-list-item-customer {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.875rem; }
+
+.demo-incidents-list-item-customer.oj-flex-bar-start {
+  margin-right: 10px; }
+
+.demo-icon-32 {
+  width: 32px;
+  height: 32px; }
+
+.demo-priority-high-icon {
+  background: url("../../images/high_priority.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-priority-normal-icon {
+  background: url("../../images/med_priority.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-priority-low-icon {
+  background: url("../../images/low_priority.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-status-open-icon {
+  background: url("../../images/open.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-status-closed-icon {
+  background: url("../../images/closed.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-status-accepted-icon {
+  background: url("../../images/accepted.svg") no-repeat center center;
+  vertical-align: middle; }
+
+.demo-status-closed {
+  border-color: #d97638;
+  color: #d97638; }
+
+.demo-status-open {
+  border-color: #8d909b;
+  color: #8d909b; }
+
+.demo-status-accepted {
+  border-color: #269e9e;
+  color: #269e9e; }
+
+.demo-priority-high {
+  border-color: #f0403a;
+  color: #f0403a; }
+
+.demo-priority-normal {
+  border-color: #377db3;
+  color: #377db3; }
+
+.demo-priority-low {
+  border-color: #608c49;
+  color: #608c49; }
+
+  /* incidents list item icons */
+.demo-incident-icon {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid; }
+
+.demo-category-plumbing-high {
+  background: url("../../images/incident_icons/water_red.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-plumbing-normal {
+  background: url("../../images/incident_icons/water_blue.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-plumbing-low {
+  background: url("../../images/incident_icons/water_green.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-general-high {
+  background: url("../../images/incident_icons/home_red.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-general-normal {
+  background: url("../../images/incident_icons/home_blue.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-general-low {
+  background: url("../../images/incident_icons/home_green.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-heatingcooling-high {
+  background: url("../../images/incident_icons/gas_red.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-heatingcooling-normal {
+  background: url("../../images/incident_icons/gas_blue.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-heatingcooling-low {
+  background: url("../../images/incident_icons/gas_green.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-appliance-high {
+  background: url("../../images/incident_icons/appliance_red.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-appliance-normal {
+  background: url("../../images/incident_icons/appliance_blue.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-appliance-low {
+  background: url("../../images/incident_icons/appliance_green.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-electrical-high {
+  background: url("../../images/incident_icons/electric_red.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-electrical-normal {
+  background: url("../../images/incident_icons/electric_blue.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-category-electrical-low {
+  background: url("../../images/incident_icons/electric_green.svg") no-repeat center center;
+  background-size: 15px; }
+
+.demo-filter-icon::before {
+  content: "\e907"; }
+
+.demo-no-padding-li .oj-listview-item {
+  padding: 0; }
+
 
 /* Case Page */
 .case-tab-content {
@@ -196,3 +363,30 @@
         align-self: flex-end;
         margin-top: 10px; 
       }
+
+      /* ------------------------ */
+      /* Inventory Page */
+      .demo-search-button, 
+      .demo-search-button:hover {
+        text-decoration: none;
+      }
+      
+      .demo-search-button:active {
+        background: none;
+      }
+
+ /* -------------------------------------------------------- */
+/* Inventory page */
+​.inventoryHeader
+{
+    height:95px;
+}
+.inventoryContent
+{
+    position:absolute;
+    top: 108px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    overflow-y:auto;        
+}
