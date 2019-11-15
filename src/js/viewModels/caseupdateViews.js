@@ -13,7 +13,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojrouter', 'ojs/ojboots
    'ojs/ojradioset',
    'ojs/ojlabel'],
    function (ko, app, data, Router, Bootstrap, moduleUtils) {
-      function CaseUpdateViews(params) {
+      function CaseUpdateViews() {
          var self = this;
 
          // Header Config
@@ -22,9 +22,9 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojrouter', 'ojs/ojboots
             self.headerConfig({ 'view': view, 'viewModel': new app.getHeaderModel() })
          })
 
-         var routerConfig =
+        /*  var routerConfig =
          {
-            'caseupdate_detail': { label: 'Detail', isDefault: true },
+            'details': { label: 'Detail', isDefault: true },
             'caseupdate_parts': { label: 'Parts' },
             'caseupdate_labor': { label: 'Labor' }
             
@@ -70,7 +70,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojrouter', 'ojs/ojboots
                );
             }
          });
-
+ */
          //Get case details
          //   self.fetch_case = function () {
  
@@ -90,12 +90,12 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojrouter', 'ojs/ojboots
           */
          self.connected = function () {
             // Implement if needed
-            Router.sync().then(
+     /*        Router.sync().then(
                null,
                function (error) {
                   Logger.error('Error during refresh: ' + error.message);
                }
-            );
+            ); */
          };
 
          /**

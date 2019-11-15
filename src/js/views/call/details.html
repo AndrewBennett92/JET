@@ -1,0 +1,169 @@
+<div class="oj-hybrid-applayout-page">
+    <div class="oj-applayout-fixed-top">
+        <!--
+             ** Oracle JET V7.2.0 hybrid mobile application header pattern.
+             ** Please see the Oracle JET Cookbook App Shell: Hybrid Mobile demos for
+             ** more information on how to use this pattern.
+          -->
+        <header role="banner" class="oj-hybrid-applayout-header">
+            <oj-module config="[[headerConfig]]"></oj-module>
+        </header>
+    </div>
+    <!-- This is where your main page content will be loaded -->
+    <div class="oj-applayout-content">
+        <div role="main" class="oj-hybrid-applayout-content">
+            <div class="oj-hybrid-padding">
+                <oj-list-view id='incidentSummaryList' class='' aria-label='incident summary' selection-mode='single'>
+                    <ul>
+                        <li id="order">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Order</span>
+                                </div>
+                                <div class="oj-flex-bar-middle">
+                                    <span id="incidentNumber" class="case-incident-summary-content svm-dont-break-out">
+                                        <oj-bind-text value="[[fs_P90CD002().data.txtOrderNumber_DOCO_39.value]]">
+                                        </oj-bind-text>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="problem">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Problem</span>
+                                </div>
+                                <div class="oj-flex-bar-middle">
+                                    <span id="incidentProblemDesc"
+                                        class="case-incident-summary-content svm-dont-break-out">
+                                        <oj-bind-text value="[[fs_P90CD002().data.txtDescription_DL01_55.value]]">
+                                        </oj-bind-text>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="problemdesc">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Description</span>
+                                </div>
+                                <div class="case-incident-summary-content svm-dont-break-out">
+                                    <oj-bind-text value="[[fs_P90CD002().data.txtProblem_ISSUE_53.value]]">
+                                    </oj-bind-text>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="priority">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Priority</span>
+                                </div>
+                                <div class="oj-flex-bar-middle oj-sm-align-items-center">
+                                    <img id="incidentPriorityIcon" src="css/images/spacer.png"
+                                        :class="[['case-icon-32 case-priority-' + fs_P90CD002().data.txtPriority_PRTS_169.assocDesc + '-icon']]">
+                                    <span id="incidentPriority"
+                                        class="case-incident-summary-content oj-hybrid-padding-start">
+                                        <oj-bind-text value="[[fs_P90CD002().data.txtPriority_PRTS_169.assocDesc]]">
+                                        </oj-bind-text>
+                                    </span>
+                                </div>
+                                <div class="oj-flex-bar-end oj-sm-align-items-center">
+                                    <div role="presentation" aria-hidden="true" style="position: relative; margin: 0;"
+                                        class="oj-fwk-icon oj-listview-drill-icon"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="equipment">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Equipment</span>
+                                </div>
+                                <div class="case-incident-summary-content svm-dont-break-out">
+                                    <oj-bind-text
+                                        value="[[fs_P90CD002().data.txtAssetNumber_ASII_18.value + ' ' + fs_P90CD002().data.txtAssetNumber_ASII_18.assocDesc]]">
+                                    </oj-bind-text>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="customer">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Customer</span>
+                                </div>
+                                <div class="case-incident-summary-content svm-dont-break-out">
+                                    <oj-bind-text value="[[fs_P90CD002().data.txtCustomerNumber_ALKY_21.assocDesc]]">
+                                    </oj-bind-text>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="contact">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Contact</span>
+                                </div>
+                                <div class="case-incident-summary-content svm-dont-break-out">
+                                    <oj-bind-text value="[[fs_P90CD002().data.txtContactName2_WHO2_75.value]]">
+                                    </oj-bind-text>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="phone">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Phone</span>
+                                </div>
+                                <div class="oj-flex-bar-middle">
+                                    <a id="customerMobile" class="case-incident-summary-content"
+                                        :href="[['tel:'+fs_P90CD002().data.txtPrefix_AR1_71.value+fs_P90CD002().data.txtPhoneNumber_PHN1_70.value]]">
+                                        <oj-bind-text
+                                            value="[['('+fs_P90CD002().data.txtPrefix_AR1_71.value+') '+fs_P90CD002().data.txtPhoneNumber_PHN1_70.value]]">
+                                        </oj-bind-text>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="status">
+                            <div class="oj-flex-bar">
+                                <div class="oj-flex-bar-start case-summary-field-name-wrapper">
+                                    <span class="case-incident-summary-field-name oj-text-sm">Status</span>
+                                </div>
+                                <div class="oj-flex-bar-middle">
+                                    <span id="incidentStatus" class="case-incident-summary-content">
+                                        <oj-bind-text
+                                            value="[[fs_P90CD002().data.txtStatus_SRST_132.value + ' - ' + fs_P90CD002().data.txtStatus_SRST_132.assocDesc]]">
+                                        </oj-bind-text>
+                                    </span>
+                                </div>
+                                <div class="oj-flex-bar-end oj-sm-align-items-center">
+                                    <div role="presentation" aria-hidden="true" style="position: relative; margin: 0;"
+                                        class="oj-fwk-icon oj-listview-drill-icon"></div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <!--  <li id="address">
+                            <div class="oj-flex-bar">
+                              <div class="oj-flex-bar-start demo-summary-field-name-wrapper">
+                                <span class="demo-incident-summary-field-name oj-text-sm">Address</span>
+                              </div>
+                              <div class="oj-flex-bar-middle">
+                                <a id="incidentLocation" class="demo-incident-summary-content demo-pointer-cursor" on-click="[[goToCustomerLocationMap]]">
+                                  <oj-bind-text value="[[incidentData().location.formattedAddress]]"></oj-bind-text>
+                                </a>
+                              </div>
+                            </div>
+                          </li> -->
+                    </ul>
+                </oj-list-view>
+
+            </div>
+        </div>
+    </div>
+</div>

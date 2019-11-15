@@ -6,17 +6,21 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
- function(ko, app, moduleUtils) {
+define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'ojs/ojrouter', 'ojs/ojbutton'],
+  function (ko, app, moduleUtils, Router) {
 
-    function AboutViewModel() {
+    function CallHeaderViewModel() {
       var self = this;
 
-      // Header Config
-      self.headerConfig = ko.observable({'view':[], 'viewModel':null});
-      moduleUtils.createView({'viewPath':'views/header.html'}).then(function(view) {
-        self.headerConfig({'view':view, 'viewModel':new app.getHeaderModel()})
-      })
+      self.router = Router.rootInstance;
+
+      self.goBack = function () {
+        //Return to Cases List
+        self.router.go('cases');
+      };
+
+      self.pageTitle = self.router.currentState().label;
+      console.log("Page title in callheader:", self.pageTitle);
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
@@ -29,14 +33,14 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
        * and inserted into the DOM and after the View is reconnected
        * after being disconnected.
        */
-      self.connected = function() {
+      self.connected = function () {
         // Implement if needed
       };
 
       /**
        * Optional ViewModel method invoked after the View is disconnected from the DOM.
        */
-      self.disconnected = function() {
+      self.disconnected = function () {
         // Implement if needed
       };
 
@@ -44,8 +48,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
        * Optional ViewModel method invoked after transition to the new View is complete.
        * That includes any possible animation between the old and the new View.
        */
-      self.transitionCompleted = function() {
-        // Implement if needed
+      self.transitionCompleted = function () {
+        app.adjustContentPadding();
       };
     }
 
@@ -54,7 +58,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    //return new AboutViewModel();
-    return AboutViewModel;
+    //return new CallHeaderViewModel();
+    return CallHeaderViewModel;
   }
 );

@@ -12,7 +12,7 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
 
         function CasesViewModel() {
             var self = this;
-
+            console.log("Running CasesViewModel");
             // Header Config
             self.headerConfig = ko.observable({ 'view': [], 'viewModel': null });
             moduleUtils.createView({ 'viewPath': 'views/header.html' }).then(function (view) {
@@ -20,11 +20,6 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
             })
 
             //Custom Code
-            var rootViewModel = ko.dataFor(document.getElementById('globalBody'));
-            console.log("Username VM: ", rootViewModel.userProfile.username);
-            self.userProfile = rootViewModel.userProfile;
-            console.log("Username self.userProfile: ", self.userProfile.username);
-
             self.allOrders = ko.observableArray();
 
             //Filtering of cases
@@ -42,6 +37,7 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
             //            self.allOrders(dataArray);
             //        }
             //    }
+            
 
             self.fetch_serviceOrders = function () {
                 var promise = new Promise(function (resolve, reject) {
@@ -62,17 +58,16 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
                         ]
                     };
 
-
                     var serviceOrders = data.servicecall(input, "FORM_SERVICE");
                     serviceOrders.done(function (response) {
-                        console.log("P48201_W48201F", response);
+                       // console.log("P48201_W48201F", response);
                         //Save form response
                         sessionStorage.setItem("fs_P48201_W48201F", JSON.stringify(response));
                         var dataArray = response.fs_P48201_W48201F.data.gridData.rowset;
                         if (dataArray.length > 0) {
                             self.allOrders(dataArray);
-                            console.log("dataArray", dataArray);
-                            console.log("allOrders", self.allOrders());
+                      //      console.log("dataArray", dataArray);
+                      //      console.log("allOrders", self.allOrders());
                         }
 
                         resolve();
@@ -89,6 +84,8 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
             self.listViewP48201_W48201F = ko.computed(function () {
                 return new oj.ArrayTableDataSource(self.allOrders(), { idAttribute: 'mnOrderNumber_7' });
             });
+
+            self.fetch_serviceOrders();
 
             self.caseSelected = function (event) {
                 var selectedCase = event.detail.value;
@@ -158,7 +155,8 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
             self.connected = function () {
 
                 // Retreive the orders on page load
-                self.fetch_serviceOrders();
+                console.log("In Connected cases.js");
+                //self.fetch_serviceOrders();
 
             };
 
@@ -184,6 +182,7 @@ define(['knockout', 'dataService', 'appController', 'ojs/ojmodule-element-utils'
          * each time the view is displayed.  Return an instance of the ViewModel if
          * only one instance of the ViewModel is needed.
          */
-        return new CasesViewModel();
+        //return new CasesViewModel();
+        return CasesViewModel;
     }
 );

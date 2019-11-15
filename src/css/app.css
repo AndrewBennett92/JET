@@ -102,7 +102,6 @@
 /* Cases List */
 /*--------------------------------*/
 /* -------------------------------------------------------- */
-/* incidents list style */
 .demo-incidents-list-item-start {
   padding-right: 0.5rem;
   min-width: 3rem; }
@@ -389,4 +388,24 @@
     right:0px;
     bottom:0px;
     overflow-y:auto;        
+}
+
+/* ---------------------------------------------------- */
+/* Parts popup list box */
+.oj-listbox-results {
+  max-height: 300px;
+  font-size: small;
+}
+
+.oj-listbox-result-label {
+  border-bottom: 1px solid #A41935;
+}
+
+/* ---------------------------------------------------- */
+/* Call Header */
+.call-header .oj-button.oj-default.oj-button-half-chrome .oj-button-icon, .oj-button-nocomp.oj-button-half-chrome .oj-button-icon, .oj-button.oj-focus-only.oj-button-half-chrome .oj-button-icon {
+  color: #F9C918;
+}
+.call-header .oj-button .oj-button-text, .oj-button-nocomp {
+  color: #F9C918;
 }

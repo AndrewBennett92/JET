@@ -9,7 +9,7 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
  function(ko, app, moduleUtils) {
 
-    function AboutViewModel() {
+    function HistoryViewModel() {
       var self = this;
 
       // Header Config
@@ -54,7 +54,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    //return new AboutViewModel();
-    return AboutViewModel;
+    //return new HistoryViewModel();
+    return HistoryViewModel;
   }
 );

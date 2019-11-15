@@ -7,10 +7,10 @@
  * Your profile ViewModel code goes here
  */
 define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils', 'ojs/ojrouter',
-  'ojs/ojknockouttemplateutils', 'ojs/ojanimation', 'ojs/ojlistview', 'ojs/ojarraytabledatasource', 'ojs/ojtable', 'ojs/ojlabel', 'ojs/ojformlayout', 'ojs/ojinputtext'],
+  'ojs/ojknockouttemplateutils', 'ojs/ojanimation', 'ojs/ojlistview', 'ojs/ojarraytabledatasource', 'ojs/ojtable', 'ojs/ojlabel', 'ojs/ojformlayout', 'ojs/ojinputtext', 'ojs/ojselectcombobox'],
   function (ko, app, data, moduleUtils, Router, KnockoutTemplateUtils, AnimationUtils) {
 
-    function CaseUpdatePartsViewModel() {
+    function PartsViewModel() {
       var self = this;
 
       this.KnockoutTemplateUtils = KnockoutTemplateUtils;
@@ -25,9 +25,31 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
       self.partsGrid = ko.observableArray();
       self.partsData = ko.observableArray();
       self.inputItemNumber = ko.observable();
-      self.inputBranch = ko.observable();
+      self.inputBranch = ko.observable(app.homeMCU().value);
       self.inputQuantity = ko.observable(1);
       self.partsGridErrors = ko.observableArray();
+      self.searchTriggered = ko.observable();
+      self.searchTerm = ko.observable();
+      self.tags = ko.observableArray([]);
+
+      //Select one box search functionality
+      self.search = function (event) {
+        var trigger = event.type;
+        var term;
+
+        if (trigger === "ojValueUpdated") {
+          // search triggered from input field
+          // getting the search term from the ojValueUpdated event
+          term = event['detail']['value'];
+        } else {
+          // search triggered from end slot
+          // getting the value from the element to use as the search term.
+          term = document.getElementById("search").value;
+        }
+        self.searchTerm(term);
+        self.inputItemNumber(term);
+      };
+
 
       //Handle popup for adding part
       this.startAnimationListener = function (event) {
@@ -137,6 +159,11 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
 
       }
 
+      self.clearClick = function (event) {
+        document.getElementById("search").value = "";
+        self.inputItemNumber("");
+        return true;
+      };
 
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
@@ -171,6 +198,20 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
         self.listViewP17730_W17730A = ko.computed(function () {
           return new oj.ArrayTableDataSource(self.partsGrid(), { idAttribute: 'rowIndex' });
         });
+
+        console.log("App connected", app.fs_P41200_W41200A());
+        let tempArray = app.fs_P41200_W41200A().fs_P41200_W41200A.data.gridData.rowset.map(item => {
+          return {
+            value: item.sItemNumber_102.value,
+            label: item.sItemNumber_102.value + " | " + item.sDescription_53.value + " | " + item.sSearchText_121.value
+          };
+        })
+        self.tags(tempArray);
+
+        self.selectOnefs_P41026_W41026E = ko.computed(function () {
+          return new oj.ArrayDataProvider(self.tags, { keyAttributes: 'value' });
+        });
+
       };
 
       /**
@@ -194,6 +235,7 @@ define(['knockout', 'appController', 'dataService', 'ojs/ojmodule-element-utils'
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new CaseUpdatePartsViewModel();
+    //return new PartsViewModel();
+    return PartsViewModel;
   }
 );

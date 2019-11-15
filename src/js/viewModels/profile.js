@@ -54,6 +54,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new ProfileViewModel();
+    //return new ProfileViewModel();
+    return ProfileViewModel;
   }
 );

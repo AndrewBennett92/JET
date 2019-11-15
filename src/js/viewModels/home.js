@@ -17,8 +17,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
       moduleUtils.createView({'viewPath':'views/header.html'}).then(function(view) {
         self.headerConfig({'view':view, 'viewModel':new app.getHeaderModel()})
       })
-      
-      //Custom Code
+     //Custom Code
      // var rootViewModel = ko.dataFor(document.getElementById('globalBody'));
       self.userProfile = app.userProfile;
       self.homeMCU = app.homeMCU;
@@ -59,6 +58,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new HomeViewModel();
+    //return new HomeViewModel();
+    return HomeViewModel;
   }
 );

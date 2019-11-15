@@ -49,33 +49,47 @@
         <br>
         <div class="inventoryContent">
           <oj-list-view id="oj-list-view--1121957485-1" selection-mode="single" data="[[ dataprovider ]]"
-            class="oj-flex-item oj-sm-12 oj-full-width oj-md-11" style="width:100%;">
+            class="oj-flex-item oj-sm-12 oj-full-width oj-md-11" style="width:100%;" scroll-policy="loadMoreOnScroll" 
+            scroll-policy-options.fetch-size="50" scroll-policy-options.max-count="2000">
             <template slot="itemTemplate">
               <div class="oj-offcanvas-outer-wrapper demo-overflow-control">
                 <div class="oj-offcanvas-inner-wrapper">
                   <div
                     class="oj-flex-bar-middle oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap oj-sm-justify-content-center demo-flex-bar-no-overflow">
                     <div class="oj-flex-bar">
-                      <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                      <div class="oj-flex-bar-start demo-incidents-list-item-problem demo-ellipsis-word-truncation"
                         :id="[[$current.data.rowIndex+'Customer']]">
-                        <oj-bind-text
-                          value="[[$current.data.sItemNumber_8.value + ' - ' + $current.data.sDescription_10.value]]">
+                        <oj-bind-text value="[[$current.data.sItemNumber_102.value]]">
                         </oj-bind-text>
                       </div>
-                      <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                    </div>
+                    <div class="oj-flex-bar">
+                      <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-flex-zero"
                         :id="[[$current.data.rowIndex+'TimeStamp']]">
-                        <oj-bind-text value="[[$current.data.sCostRule_38.value]]"></oj-bind-text>
+                        <oj-bind-text value="[[$current.data.sDescription_53.value]]"></oj-bind-text>
+                      </div>
+                      <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
+                        :id="[[$current.data.rowIndex+'EquipDesc']]">
+                        <oj-bind-text value="[[$current.data.sDescriptionLine2_54.value]]">
+                        </oj-bind-text>
                       </div>
                     </div>
                     <div class="oj-flex-bar">
                       <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
                         :id="[[$current.data.rowIndex+'Serial']]">
-                        <oj-bind-text value="[[$current.data.sSearchText_34.value]]">
+                        <oj-bind-text value="[[$current.data.sSearchText_121.value]]">
+                        </oj-bind-text>
+                      </div>
+                    </div>
+                    <div class="oj-flex-bar">
+                      <div class="oj-flex-bar-start demo-incidents-list-item-customer demo-ellipsis-word-truncation"
+                        :id="[[$current.data.rowIndex+'Serial']]">
+                        <oj-bind-text value="[['Quantity Available ' + $current.data.mnQuantityAvailable_70.value]]">
                         </oj-bind-text>
                       </div>
                       <div class="oj-flex-bar-end demo-incidents-list-item-customer demo-flex-zero"
                         :id="[[$current.data.rowIndex+'EquipDesc']]">
-                        <oj-bind-text value="[[$current.data.sDescription2_86.value]]">
+                        <oj-bind-text value="[['Quantity On Order ' + $current.data.mnQuantityOnOrder_166.value]]">
                         </oj-bind-text>
                       </div>
                     </div>

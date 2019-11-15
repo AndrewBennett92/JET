@@ -9,13 +9,13 @@
 define(['jquery'], function ($) {
 
     var LocalDevConfig = new function () {
-        this.AIS_HOST = "ais.aztecofficedev.com";
-        this.AIS_PORT = "443";
-        this.AIS_PROTOCOL = "https";
+        this.AIS_HOST = "erponelab.westus.cloudapp.azure.com";
+        this.AIS_PORT = "8131";
+        this.AIS_PROTOCOL = "http";
         //this.JAS_SERVER = null;
         //this.USER_NAME = "";
         //this.PASSWORD = "";
-        this.ENVIRONMENT = "JDV910";
+        this.ENVIRONMENT = "JDV920";
         this.ROLE = "*ALL";
         this.DEVICE_NAME = "TestAIS";
     };

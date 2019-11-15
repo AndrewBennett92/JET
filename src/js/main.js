@@ -53,6 +53,7 @@ require(['ojs/ojbootstrap', 'knockout', 'appController', 'ojs/ojrouter', 'ojs/oj
         function init() {
           Router.sync().then(
             function () {
+              console.log("in main.js whenDocReady");
               app.loadModule();
               // Bind your ViewModel for the content of the whole page body.
               ko.applyBindings(app, document.getElementById('globalBody'));

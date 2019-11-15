@@ -66,6 +66,7 @@
                               edge="top"
                               item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
                               on-oj-before-select="[[beforeNavigation]]"
+                              on-selection-changed="[[selectionChange]]"
                               selection="{{router.stateId}}">
           </oj-navigation-list>
         </div>
@@ -74,6 +75,7 @@
     
     <script type="text/javascript" src="js/libs/require/require.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+
 
   </body>
 

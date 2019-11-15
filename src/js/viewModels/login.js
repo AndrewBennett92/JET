@@ -6,7 +6,7 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-element-utils',
+define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojrouter', 'ojs/ojmodule-element-utils',
     'ojs/ojarraydataprovider',
     'ojs/ojmessages',
     'ojs/ojmessaging',
@@ -14,7 +14,7 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
     'ojs/ojbutton',
     'ojs/ojvalidationgroup', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojformlayout',
     'ojs/ojanimation'],
-    function (oj, data, ko, app, moduleUtils, ArrayDataProvider) {
+    function (oj, data, ko, app, Router, moduleUtils, ArrayDataProvider) {
 
         function LoginViewModel() {
             var self = this;
@@ -24,6 +24,7 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
             self.passWord = ko.observable();
             self.loginError = ko.observable();
             self.loggingIn = ko.observable(false);
+            self.router = Router.rootInstance;
 
             self.logIn = function () {
                 if (self.groupValid() !== "valid")
@@ -57,7 +58,7 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
                     };
                     data.servicecall(input, "FORM_SERVICE")
                         .done(function (response2) {
-                            console.log("resonse 2:", response2);
+                            //console.log("resonse 2:", response2);
                             var businessUnit = response2.fs_P01012_W01012A.data.txtBusinessUnit_62.value;
                             var businessUnitDesc = response2.fs_P01012_W01012A.data.txtBusinessUnit_62.assocDesc;
                             if (businessUnit === "") {
@@ -68,36 +69,37 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
                             app.homeMCU({ value: businessUnit, assocDesc: businessUnitDesc });
                             // Get the parts for the person logged in
                             var input2 = {
-                                formName: "P41026_W41026E",
+                                formName: "P41200_W41200A",
                                 formServiceAction: "R",
-                                maxPageSize: "500",
+                                maxPageSize: "700",
+                                returnControlIDs: "1[53,54,102,121,70,166,65]",
                                 formActions: [
                                     {
                                         //Pass in users home business unit to QBW
-                                        value: app.homeMCU().value,
-                                        command: "SetQBEValue",
-                                        controlID: "1[12]"
-                                    },
-                                    {
-                                        //Pass in Stocking Type S to QBE
-                                        value: "S",
-                                        command: "SetQBEValue",
-                                        controlID: "1[101]"
-                                    },
-                                    {
+                              //          value: app.homeMCU().value,
+                              //          command: "SetQBEValue",
+                              //          controlID: "1[55]"
+                              //      },
+                                 //   {
+                                        //Pass in SRP0 to QBE
+                                 //       value: "Y",
+                                  //      command: "SetQBEValue",
+                                 //       controlID: "1[129]"
+                                 //   },
+                                   // {
                                         //Click the find button
                                         command: "DoAction",
-                                        controlID: "6"
+                                        controlID: "28"
                                     }
                                 ]
                             };
                             data.servicecall(input2, "FORM_SERVICE")
                                 .done(function (response3) {
-                                    sessionStorage.setItem("fs_P41026_W41026E", JSON.stringify(response3));
-
+                                    sessionStorage.setItem("fs_P41200_W41200A", JSON.stringify(response3));
+                                    app.fs_P41200_W41200A(response3);
                                     //Everying is completed, finish login and direct to next page
                                     app.userLoggedIn("Y");
-                                    app.router.go('home');
+                                    self.router.stateId('home');
                                 });
                         })
                 });
@@ -156,6 +158,7 @@ define(['ojs/ojcore', 'dataService', 'knockout', 'appController', 'ojs/ojmodule-
          * each time the view is displayed.  Return an instance of the ViewModel if
          * only one instance of the ViewModel is needed.
          */
-        return new LoginViewModel();
+        //return new LoginViewModel();
+        return LoginViewModel;
     }
 );

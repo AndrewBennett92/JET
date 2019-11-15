@@ -34,6 +34,9 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
             self.userProfile = ko.observable();
             self.homeMCU = ko.observable();
 
+            // Form Requests
+            self.fs_P41200_W41200A = ko.observable();
+
             //Global variable to track selected case
             self.selectedCase = ko.observable();
             //Parse the tokenrequest response to variable and navigate to next page
@@ -63,7 +66,7 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                 //  console.log("Navigating to caseupdate from goToCase for case" , self.selectedCase());
                 var caseDetails = data.servicecall(input, "BATCH_FORM_SERVICE");
                 caseDetails.done(function (response) {
-                    console.log("Case Details response", response);
+                   // console.log("Case Details response", response);
                     //Save form response
                     var caseDetails = response.fs_0_P90CD002_W90CD002B;
                     sessionStorage.setItem("fs_P90CD002_W90CD002B", JSON.stringify(caseDetails));
@@ -78,7 +81,10 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                     if (caseLabor) {
                         sessionStorage.setItem("fs_P17732_W17732D", JSON.stringify(caseLabor));
                     }
-                    self.router.go('caseupdateViews');
+                    console.log("Get Child Router from gotoCase: ", self.router.getChildRouter('call'));
+                    console.log("Parent Router from gotoCase: ", self.router);
+                    //self.router.getChildRouter('call').go();
+                    self.router.go('call');
                 });
                 caseDetails.fail(function (response) {
                     var test = data.retrieveError(response.status);
@@ -88,9 +94,9 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
 
             self.beforeNavigation = function (event, vm) {
                 var key = event.detail.key;
-                console.log("VM: ", vm);
-                console.log("Event: ", event);
-
+               // console.log("VM: ", vm);
+               // console.log("Event: ", event);
+                console.log("Before Nav: ", self.router.stateId);
 
                 if (key === 'signout') {
                     event.preventDefault()
@@ -101,6 +107,13 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                         self.goToSignIn();
                     });
                     return;
+                }
+            };
+
+            self.selectionChange = function (event) {
+                let newVal = event.detail.value;
+                if (newVal !== self.router.stateId()) {
+                    self.router.go(newVal);
                 }
             };
 
@@ -122,10 +135,28 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                         return self.userLoggedIn() == 'Y';
                     }
                 },
-                'caseupdateViews': {
-                    label: 'Case Details', canEnter: function () {
+                'call': {
+                    label: 'Call', canEnter: function () {
                         return self.userLoggedIn() == 'Y';
-                    }
+                    },
+                    value: self.router.createChildRouter('call').configure({
+                        'details': {
+                            label: 'Details',
+                            isDefault: true
+                        },
+                        'parts': {
+                            label: 'Parts'
+                        },
+                        'history': {
+                            label: 'History'
+                        },
+                        'dispatch': {
+                            label: 'Dispatch'
+                        },
+                        'machineinquiry': {
+                            label: 'Machine Inquiry'
+                        }
+                    })
                 },
                 'inventory': {
                     label: 'Inventory', canEnter: function () {
@@ -151,29 +182,35 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
 
             self.moduleConfig = ko.observable({ 'view': [], 'viewModel': null });
 
+
             self.loadModule = function () {
-                console.log('In loadModule');
                 ko.computed(function () {
-                    var name = self.router.moduleConfig.name();
+                    console.log("In loadModule app Controller");
+                    var flowName = self.router.moduleConfig.name();
+                    var name = flowName;
+                    if (flowName && flowName === 'call') {
+                        name = flowName + '/' + self.router.getCurrentChildRouter().moduleConfig.name();
+                    }
                     var viewPath = 'views/' + name + '.html';
                     var modelPath = 'viewModels/' + name;
+                    console.log(`name: ${name} viewPath: ${viewPath} modelPath: ${modelPath}`);
+                    console.log("Router State ID: ", self.router.stateId());
+                    //   self.navDataProvider = new ArrayDataProvider(navData(), { keyAttributes: 'id' });
                     var masterPromise = Promise.all([
                         moduleUtils.createView({ 'viewPath': viewPath }),
                         moduleUtils.createViewModel({ 'viewModelPath': modelPath })
                     ]);
                     masterPromise.then(
                         function (values) {
-                            var viewModel = typeof values[1] === 'function' ? new values[1](self.router) : values[1];
-                            console.log('var viewModel', values);
-                            self.moduleConfig({ 'view': values[0], 'viewModel': viewModel });
+                            self.moduleConfig({ 'view': values[0], 'viewModel': values[1] });
                         }
                     );
                 });
-            }
+            };
             self.moduleAnimation = ModuleAnimations.switcher(switcherCallback);
 
             // Navigation setup
-            var navData = [
+            self.defaultnavData = [
                 {
                     name: 'Home', id: 'home', loggedInOnly: true,
                     iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-home-icon-24'
@@ -191,12 +228,50 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
                     iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-signout-icon-24'
                 }
             ];
+            //Case navigation
+            self.casenavData = [
+                {
+                    name: 'Details', id: 'call/details', loggedInOnly: true,
+                    iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-edit-icon-24'
+                },
+                {
+                    name: 'Parts', id: 'call/parts', loggedInOnly: true,
+                    iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-palette-icon-24'
+                },
+                {
+                    name: 'History', id: 'call/history', loggedInOnly: true,
+                    iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-copy-icon-24'
+                },
+                {
+                    name: 'Machine', id: 'call/machineinquiry', loggedInOnly: true,
+                    iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'
+                },
+                {
+                    name: 'Dispatch', id: 'call/dispatch', loggedInOnly: true,
+                    iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chat-icon-24'
+                }
+            ];
 
-            self.navDataProvider = new ArrayDataProvider(navData, { keyAttributes: 'id' });
+            var navData = function () {
+                var flowName = self.router.moduleConfig.name();
+                console.log("In navData function: ", flowName);
+                if (flowName && flowName === 'call') {
+                    return self.casenavData;
+                }
+                else {
+                    return self.defaultnavData;
+                }
+            };
+
+            //    self.navDataProvider = new ArrayDataProvider(navData(), { keyAttributes: 'id' });
+            self.navDataProvider = ko.computed(function () {
+                return new ArrayDataProvider(navData(), { keyAttributes: 'id' });
+            });
 
             // Header Setup
             self.getHeaderModel = function () {
                 this.pageTitle = self.router.currentState().label;
+                console.log("Page title:" , this.pageTitle);
                 this.transitionCompleted = function () {
                     // Adjust content padding after header bindings have been applied
                     self.adjustContentPadding();
@@ -224,6 +299,7 @@ define(['knockout', 'dataService', 'ojs/ojrouter', 'ojs/ojthemeutils', 'ojs/ojmo
             }
         }
 
-        return new ControllerViewModel();
+       // return new ControllerViewModel();
+       return new ControllerViewModel();
     }
 );
